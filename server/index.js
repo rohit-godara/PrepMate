@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors({ origin: ["http://localhost:5173", "https://auto-interview-psi.vercel.app"], credentials: true }));
 app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "unsafe-none");
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
   next();
 });
 app.use(express.json());

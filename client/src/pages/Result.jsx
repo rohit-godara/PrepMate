@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
-import { TbRobot } from "react-icons/tb";
+import { LogoIcon } from "../components/Logo";
 import { MdWarning, MdCheckCircle, MdTrendingUp, MdTrendingDown, MdStar } from "react-icons/md";
 import axios from "axios";
 import { ServerURL } from "../App";
@@ -45,10 +45,10 @@ function Result() {
   };
 
   if (loading) return (
-    <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="w-full min-h-screen flex items-center justify-center" style={{ background: "#f0fdf4" }}>
       <div className="text-center">
-        <div className="bg-black text-white p-3 rounded-xl inline-block mb-4">
-          <TbRobot size={28} />
+        <div className="p-3 rounded-xl inline-block mb-4" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
+          <LogoIcon size={28} />
         </div>
         <p className="text-gray-600 font-medium">Analyzing your interview...</p>
         <p className="text-gray-400 text-sm mt-1">This may take a few seconds</p>
@@ -57,13 +57,13 @@ function Result() {
   );
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 py-8 sm:py-10 px-4 sm:px-6">
+    <div className="w-full min-h-screen py-8 sm:py-10 px-4 sm:px-6" style={{ background: "#f0fdf4" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
         <div className="flex items-center gap-2 mb-8">
-          <div className="bg-black text-white p-2 rounded-lg">
-            <TbRobot size={20} />
+          <div className="p-2 rounded-lg" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
+            <LogoIcon size={20} />
           </div>
           <span className="font-bold text-lg">Interview Results</span>
         </div>
@@ -98,7 +98,7 @@ function Result() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 text-center"
+                  className="bg-white rounded-2xl p-5 text-center" style={{ border: "1px solid #dcfce7", boxShadow: "0 2px 12px rgba(74,222,128,0.08)" }}
                 >
                   <p className={`text-3xl font-bold mb-1 ${s.noColor ? "text-gray-800" : getScoreColor(s.value)}`}>
                     {s.value}{s.suffix}
@@ -109,7 +109,7 @@ function Result() {
             </div>
 
             {/* Progress Bars */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-2xl p-6" style={{ border: "1px solid #dcfce7", boxShadow: "0 2px 12px rgba(74,222,128,0.08)" }}>
               <h3 className="font-semibold text-gray-800 mb-4">Performance Breakdown</h3>
               {[
                 { label: "Overall Score", value: result.overallScore },
@@ -136,7 +136,7 @@ function Result() {
 
             {/* Strong & Weak Topics */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-2xl p-6" style={{ border: "1px solid #dcfce7" }}>
                 <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
                   <MdCheckCircle className="text-green-500" /> Strong Topics
                 </h3>
@@ -148,7 +148,7 @@ function Result() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <div className="bg-white rounded-2xl p-6" style={{ border: "1px solid #dcfce7" }}>
                 <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
                   <MdTrendingDown className="text-red-500" /> Weak Topics
                 </h3>
@@ -179,7 +179,7 @@ function Result() {
             )}
 
             {/* Improvement Tips */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-2xl p-6" style={{ border: "1px solid #dcfce7" }}>
               <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
                 <MdTrendingUp className="text-blue-500" /> How to Improve
               </h3>
@@ -194,11 +194,11 @@ function Result() {
             </div>
 
             {/* Q&A Review */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-2xl p-6" style={{ border: "1px solid #dcfce7" }}>
               <h3 className="font-semibold text-gray-800 mb-4">Question Review</h3>
               <div className="space-y-4">
                 {result.questionAnalysis?.map((qa, i) => (
-                  <div key={i} className="border border-gray-100 rounded-xl p-4">
+                  <div key={i} className="rounded-xl p-4" style={{ border: "1px solid #dcfce7" }}>
                     <p className="text-sm font-medium text-gray-800 mb-2">Q{i + 1}: {qa.question}</p>
                     <p className="text-sm text-gray-600 mb-2"><span className="font-medium">Your answer:</span> {qa.answer || "No answer given"}</p>
                     <p className="text-sm text-gray-600 mb-2"><span className="font-medium">Feedback:</span> {qa.feedback}</p>
@@ -214,13 +214,13 @@ function Result() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => navigate("/upload-resume")}
-                className="flex-1 bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition cursor-pointer"
+                className="flex-1 text-white py-3 rounded-xl font-medium transition cursor-pointer" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}
               >
                 Take Another Interview
               </button>
               <button
                 onClick={() => navigate("/")}
-                className="flex-1 bg-white text-black py-3 rounded-xl font-medium border border-gray-200 hover:bg-gray-50 transition cursor-pointer"
+                className="flex-1 bg-white py-3 rounded-xl font-medium transition cursor-pointer" style={{ color: "#15803d", border: "1px solid #bbf7d0" }}
               >
                 Go Home
               </button>

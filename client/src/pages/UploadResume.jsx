@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { TbRobot } from "react-icons/tb";
+import { LogoIcon } from "../components/Logo";
 import { MdOutlineUploadFile, MdPictureAsPdf, MdCheckCircle, MdCancel, MdTrendingUp, MdWarning, MdCode, MdWork, MdSchool, MdLightbulb } from "react-icons/md";
 import { motion, AnimatePresence } from "motion/react";
 import axios from "axios";
@@ -108,15 +108,15 @@ function UploadResume() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 px-4 sm:px-6 py-8 sm:py-12">
+    <div className="w-full min-h-screen px-4 sm:px-6 py-8 sm:py-12" style={{ background: "#f0fdf4" }}>
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}
         <div className="flex items-center gap-2 mb-8 sm:mb-10">
-          <div className="bg-black text-white p-2 rounded-lg">
-            <TbRobot size={20} />
+          <div className="p-2 rounded-lg" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
+            <LogoIcon size={20} />
           </div>
-          <span className="font-bold text-lg">Auto_Interview</span>
+          <span className="font-bold text-lg" style={{ color: "#15803d" }}>PrepMate</span>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6 items-start">
@@ -125,22 +125,22 @@ function UploadResume() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full lg:max-w-md bg-white rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8 flex-shrink-0"
+            className="w-full lg:max-w-md bg-white rounded-2xl p-6 sm:p-8 flex-shrink-0" style={{ border: "1px solid #dcfce7", boxShadow: "0 4px 24px rgba(74,222,128,0.1)" }}
           >
             <h2 className="text-2xl font-bold text-gray-800 mb-1">Upload Resume</h2>
             <p className="text-gray-500 text-sm mb-6">AI will analyze your resume and generate interview questions</p>
 
             {/* Credits */}
-            <div className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 mb-6">
+            <div className="flex items-center justify-between rounded-xl px-4 py-3 mb-6" style={{ background: "#f0fdf4" }}>
               <span className="text-sm text-gray-600">Available Credits</span>
-              <span className="font-bold text-black">{user?.credits || 0}</span>
+              <span className="font-bold text-green-700">{user?.credits || 0}</span>
             </div>
 
             {/* Upload Area */}
             <div
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center mb-4 hover:border-gray-400 transition cursor-pointer"
+              className="border-2 border-dashed rounded-2xl p-8 text-center mb-4 transition cursor-pointer" style={{ borderColor: "#86efac" }}
               onClick={() => document.getElementById("resume-input").click()}
             >
               {file ? (
@@ -164,7 +164,7 @@ function UploadResume() {
             <button
               onClick={handleAnalyzeResume}
               disabled={analyzing || !file}
-              className="w-full bg-gray-100 text-gray-800 py-3 rounded-xl font-medium hover:bg-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mb-3"
+              className="w-full py-3 rounded-xl font-medium transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mb-3" style={{ background: "#f0fdf4", color: "#15803d", border: "1px solid #bbf7d0" }}
             >
               {analyzing ? "Analyzing Resume..." : "🔍 Analyze Resume First"}
             </button>
@@ -178,7 +178,8 @@ function UploadResume() {
                     <button
                       key={t.id}
                       onClick={() => setType(t.id)}
-                      className={`flex-1 py-2 rounded-xl border text-sm font-medium transition cursor-pointer ${type === t.id ? "bg-black text-white border-black" : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"}`}
+                      className={`flex-1 py-2 rounded-xl border text-sm font-medium transition cursor-pointer ${type === t.id ? "text-white" : "bg-white text-gray-600 border-green-100 hover:border-green-400"}`}
+                      style={type === t.id ? { background: "linear-gradient(135deg, #16a34a, #4ade80)", border: "1px solid #16a34a" } : {}}
                     >
                       {t.icon} {t.label}
                     </button>
@@ -195,7 +196,8 @@ function UploadResume() {
                     <button
                       key={l.id}
                       onClick={() => setLanguage(l.id)}
-                      className={`flex-1 py-2 rounded-xl border text-sm font-medium transition cursor-pointer ${language === l.id ? "bg-black text-white border-black" : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"}`}
+                      className={`flex-1 py-2 rounded-xl border text-sm font-medium transition cursor-pointer ${language === l.id ? "text-white" : "bg-white text-gray-600 border-green-100 hover:border-green-400"}`}
+                      style={language === l.id ? { background: "linear-gradient(135deg, #16a34a, #4ade80)", border: "1px solid #16a34a" } : {}}
                     >
                       {l.label}
                     </button>
@@ -214,8 +216,9 @@ function UploadResume() {
                       key={d.id}
                       onClick={() => setDuration(d.id)}
                       className={`py-3 rounded-xl border text-sm font-medium transition cursor-pointer flex flex-col items-center gap-0.5 ${
-                        duration === d.id ? "bg-black text-white border-black" : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                        duration === d.id ? "text-white" : "bg-white text-gray-600 border-green-100 hover:border-green-400"
                       }`}
+                      style={duration === d.id ? { background: "linear-gradient(135deg, #16a34a, #4ade80)", border: "1px solid #16a34a" } : {}}
                     >
                       <span className="font-bold">{d.label}</span>
                       <span className={`text-xs ${duration === d.id ? "text-gray-300" : "text-gray-400"}`}>{d.questions} questions</span>
@@ -232,7 +235,7 @@ function UploadResume() {
             <button
               onClick={handleStartInterview}
               disabled={loading || !file}
-              className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full text-white py-3 rounded-xl font-medium transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}
             >
               {loading ? "Generating Questions..." : `Start Interview (${durations.find(d => d.id === duration)?.credits} credits)`}
             </button>
@@ -257,7 +260,7 @@ function UploadResume() {
 
                 {/* Section-by-Section Scores */}
                 {resumeAnalysis.sectionScores && (
-                  <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                  <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                     <h3 className="font-semibold text-gray-800 mb-4">Section Wise Breakdown</h3>
                     <div className="space-y-4">
                       {Object.entries(resumeAnalysis.sectionScores).map(([key, val], i) => {
@@ -306,7 +309,7 @@ function UploadResume() {
                 )}
 
                 {/* ATS Score */}
-                <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-semibold text-gray-800">ATS Compatibility</h3>
                     <span className={`text-2xl font-bold ${getScoreColor(resumeAnalysis.atsScore)}`}>{resumeAnalysis.atsScore}%</span>
@@ -324,7 +327,7 @@ function UploadResume() {
 
                 {/* Bullet Point Analysis */}
                 {resumeAnalysis.bulletPointAnalysis && (
-                  <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                  <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                     <h3 className="font-semibold text-gray-800 mb-3">Bullet Point Quality</h3>
                     <div className="flex gap-3 mb-3">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${resumeAnalysis.bulletPointAnalysis.hasMetrics ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
@@ -340,7 +343,7 @@ function UploadResume() {
 
                 {/* Strong & Weak */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                  <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                     <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2"><MdCheckCircle className="text-green-500" /> Strong Points</h3>
                     <ul className="space-y-2">
                       {resumeAnalysis.strongPoints?.map((p, i) => (
@@ -348,7 +351,7 @@ function UploadResume() {
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                  <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                     <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2"><MdCancel className="text-red-500" /> Weak Points</h3>
                     <ul className="space-y-2">
                       {resumeAnalysis.weakPoints?.map((p, i) => (
@@ -359,7 +362,7 @@ function UploadResume() {
                 </div>
 
                 {/* Keywords */}
-                <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                   <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2"><MdCode className="text-purple-500" /> Keywords Analysis</h3>
                   {resumeAnalysis.keywordsFound?.length > 0 && (
                     <div className="mb-3">
@@ -382,19 +385,19 @@ function UploadResume() {
                 {/* Section Analysis */}
                 <div className="space-y-3">
                   {resumeAnalysis.experienceAnalysis && (
-                    <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                    <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                       <h3 className="font-semibold text-gray-800 mb-2 flex items-center gap-2"><MdWork className="text-blue-500" /> Experience Analysis</h3>
                       <p className="text-sm text-gray-600">{resumeAnalysis.experienceAnalysis}</p>
                     </div>
                   )}
                   {resumeAnalysis.educationAnalysis && (
-                    <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                    <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                       <h3 className="font-semibold text-gray-800 mb-2 flex items-center gap-2"><MdSchool className="text-indigo-500" /> Education Analysis</h3>
                       <p className="text-sm text-gray-600">{resumeAnalysis.educationAnalysis}</p>
                     </div>
                   )}
                   {resumeAnalysis.skillsAnalysis && (
-                    <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                    <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                       <h3 className="font-semibold text-gray-800 mb-2 flex items-center gap-2"><MdCode className="text-purple-500" /> Skills Analysis</h3>
                       <p className="text-sm text-gray-600">{resumeAnalysis.skillsAnalysis}</p>
                     </div>
@@ -412,7 +415,7 @@ function UploadResume() {
                 )}
 
                 {/* Improvements */}
-                <div className="bg-white rounded-2xl border border-gray-200 p-5">
+                <div className="bg-white rounded-2xl p-5" style={{ border: "1px solid #dcfce7" }}>
                   <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2"><MdTrendingUp className="text-blue-500" /> Fix Your Resume</h3>
                   <ul className="space-y-4">
                     {resumeAnalysis.improvements?.map((item, i) => (

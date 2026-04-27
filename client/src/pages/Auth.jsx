@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import { TbRobot } from "react-icons/tb";
+import { LogoIcon } from "../components/Logo";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "motion/react";
 import axios from "axios";
@@ -40,103 +40,97 @@ function Auth() {
     }
   };
 
-  const onStart = useCallback(() => {
-    dragging.current = true;
-    setIsDragging(true);
-  }, []);
-
-  const onMove = useCallback((clientX) => {
-    if (!dragging.current) return;
-    setFill(getPercent(clientX));
-  }, [getPercent]);
-
+  const onStart = useCallback(() => { dragging.current = true; setIsDragging(true); }, []);
+  const onMove = useCallback((clientX) => { if (!dragging.current) return; setFill(getPercent(clientX)); }, [getPercent]);
   const onEnd = useCallback((clientX) => {
     if (!dragging.current) return;
-    dragging.current = false;
-    setIsDragging(false);
+    dragging.current = false; setIsDragging(false);
     const percent = getPercent(clientX);
-    if (percent >= 88) {
-      setFill(100);
-      setTimeout(handleGoogleLogin, 200);
-    } else {
-      setFill(0);
-    }
+    if (percent >= 88) { setFill(100); setTimeout(handleGoogleLogin, 200); }
+    else setFill(0);
   }, [getPercent]);
 
-  // Mouse events on window so drag works outside slider
   useEffect(() => {
     const move = (e) => onMove(e.clientX);
     const up = (e) => onEnd(e.clientX);
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseup", up);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseup", up);
-    };
+    return () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseup", up); };
   }, [onMove, onEnd]);
 
-  const thumbLeft = `calc(${fill} * (100% - ${THUMB}px) / 100)`;
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="w-full min-h-screen bg-gray-50 flex items-center justify-center px-6"
-    >
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-200 p-10">
+    <div className="w-full min-h-screen flex items-center justify-center px-6 relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #f0fdf4, #dcfce7, #f8fafc)" }}>
 
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="bg-black text-white p-2 rounded-lg">
-            <TbRobot size={22} />
-          </div>
-          <h1 className="text-xl font-bold text-gray-800">Auto_Interview</h1>
-        </div>
+      {/* Ambient blobs */}
+      <div className="absolute top-[-15%] left-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(134,239,172,0.35) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(74,222,128,0.2) 0%, transparent 70%)" }} />
+      <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(187,247,208,0.4) 0%, transparent 70%)" }} />
 
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800">Welcome Back</h2>
-          <p className="text-gray-500 text-sm mt-1">Sign in to continue to Auto_Interview</p>
-        </div>
+      <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
+        className="w-full max-w-md relative z-10">
 
-        <div
-          ref={sliderRef}
-          className="relative w-full h-14 rounded-full border border-gray-300 bg-gray-100 overflow-hidden select-none"
-        >
-          {/* Fill bar */}
-          <div
-            className="absolute top-0 left-0 h-full bg-blue-500 rounded-full"
-            style={{
-              width: `calc(${fill} * (100% - ${THUMB}px) / 100 + ${THUMB}px)`,
-              transition: isDragging ? "none" : "width 0.3s ease",
-            }}
-          />
+        {/* Card */}
+        <div className="rounded-3xl p-10 shadow-2xl"
+          style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(24px)", border: "1px solid rgba(134,239,172,0.4)", boxShadow: "0 20px 60px rgba(74,222,128,0.15)" }}>
 
-          {/* Label */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className={`text-sm font-medium transition-colors ${fill > 40 ? "text-white" : "text-gray-500"}`}>
-              {fill >= 88 ? "Signing in..." : "Slide to sign in →"}
-            </span>
+          {/* Logo */}
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <div className="p-2.5 rounded-xl" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
+              <LogoIcon size={22} />
+            </div>
+            <span className="font-bold text-xl tracking-tight" style={{ color: "#15803d" }}>PrepMate</span>
           </div>
 
-          {/* Thumb */}
-          <div
-            onMouseDown={onStart}
-            onTouchStart={(e) => { onStart(); onMove(e.touches[0].clientX); }}
-            onTouchMove={(e) => onMove(e.touches[0].clientX)}
-            onTouchEnd={(e) => onEnd(e.changedTouches[0].clientX)}
-            className="absolute top-1 h-12 w-12 bg-white rounded-full shadow-md flex items-center justify-center cursor-grab active:cursor-grabbing z-10 border border-gray-200"
-            style={{
-              left: thumbLeft,
-              transition: isDragging ? "none" : "left 0.3s ease",
-            }}
-          >
-            <FcGoogle size={22} />
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-2" style={{ color: "#14532d" }}>Welcome Back</h2>
+            <p className="text-sm" style={{ color: "#6b7280" }}>Sign in to start your AI interview practice</p>
+          </div>
+
+          {/* Slider */}
+          <div ref={sliderRef}
+            className="relative w-full h-14 rounded-full overflow-hidden select-none"
+            style={{ background: "#f0fdf4", border: "1px solid rgba(134,239,172,0.5)" }}>
+            <div className="absolute top-0 left-0 h-full rounded-full"
+              style={{
+                width: `calc(${fill} * (100% - ${THUMB}px) / 100 + ${THUMB}px)`,
+                background: "linear-gradient(90deg, #16a34a, #4ade80)",
+                transition: isDragging ? "none" : "width 0.3s ease",
+              }} />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="text-sm font-medium transition-colors" style={{ color: fill > 40 ? "white" : "#9ca3af" }}>
+                {fill >= 88 ? "Signing in..." : "Slide to sign in →"}
+              </span>
+            </div>
+            <div
+              onMouseDown={onStart}
+              onTouchStart={(e) => { onStart(); onMove(e.touches[0].clientX); }}
+              onTouchMove={(e) => onMove(e.touches[0].clientX)}
+              onTouchEnd={(e) => onEnd(e.changedTouches[0].clientX)}
+              className="absolute top-1 h-12 w-12 bg-white rounded-full shadow-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
+              style={{ left: `calc(${fill} * (100% - ${THUMB}px) / 100)`, transition: isDragging ? "none" : "left 0.3s ease" }}>
+              <FcGoogle size={22} />
+            </div>
+          </div>
+
+          <p className="text-center text-xs mt-4" style={{ color: "#9ca3af" }}>
+            Drag the Google icon all the way to sign in
+          </p>
+
+          {/* Features row */}
+          <div className="flex justify-center gap-6 mt-8 pt-8" style={{ borderTop: "1px solid rgba(134,239,172,0.3)" }}>
+            {["AI Interview", "Resume Analysis", "Instant Feedback"].map((f, i) => (
+              <div key={i} className="text-center">
+                <p className="text-xs font-medium" style={{ color: "#16a34a" }}>{f}</p>
+              </div>
+            ))}
           </div>
         </div>
-
-        <p className="text-center text-xs text-gray-400 mt-4">Drag the Google icon all the way to sign in</p>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 

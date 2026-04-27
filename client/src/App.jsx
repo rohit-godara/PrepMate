@@ -36,9 +36,9 @@ function App() {
   const isProfileComplete = !!(user?.phone && user?.college && user?.targetRole);
 
   if (loading) return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="w-full min-h-screen flex items-center justify-center" style={{ background: "#f0fdf4" }}>
       <div className="text-center">
-        <div className="w-8 h-8 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-3" style={{ borderColor: "#16a34a", borderTopColor: "transparent" }} />
         <p className="text-gray-500 text-sm">Loading...</p>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { TbRobot } from "react-icons/tb";
+import { LogoIcon } from "../components/Logo";
 import { MdMic, MdMicOff, MdWarning, MdCode, MdFaceRetouchingOff } from "react-icons/md";
 import { BsCameraVideo, BsCameraVideoOff } from "react-icons/bs";
 import Editor from "@monaco-editor/react";
@@ -514,10 +514,10 @@ function InterviewRoom() {
       {/* Top Bar */}
       <div className="flex items-center justify-between px-3 sm:px-6 py-3 bg-gray-800 border-b border-gray-700 flex-wrap gap-2">
         <div className="flex items-center gap-2">
-          <div className="bg-white text-black p-1.5 rounded-lg">
-            <TbRobot size={18} />
+          <div className="p-1.5 rounded-lg" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
+            <LogoIcon size={18} />
           </div>
-          <span className="font-bold text-sm sm:text-base">Auto_Interview</span>
+          <span className="font-bold text-sm sm:text-base text-white">PrepMate</span>
           <span className="ml-1 text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full hidden sm:inline">● LIVE PROCTORED</span>
         </div>
         <div className="flex items-center gap-2 sm:gap-4 flex-wrap">

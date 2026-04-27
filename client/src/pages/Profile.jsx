@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "motion/react";
-import { TbRobot } from "react-icons/tb";
+import { LogoIcon } from "../components/Logo";
 import { MdEdit, MdSave, MdLogout, MdAdd, MdClose, MdPerson, MdPhone, MdSchool, MdWork, MdCode, MdBarChart } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import axios from "axios";
@@ -93,17 +93,17 @@ function Profile() {
   const avatarLetter = (form.name || user?.name || "U")[0].toUpperCase();
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen" style={{ background: "#f0fdf4" }}>
 
       {/* Navbar */}
       <nav className="w-full px-4 sm:px-8 py-4 flex items-center justify-between bg-white shadow-sm">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => isProfileComplete ? navigate("/") : null}>
-          <div className="bg-black text-white p-2 rounded-lg"><TbRobot size={20} /></div>
-          <span className="font-bold text-lg">Auto_Interview</span>
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
+          <div className="p-2 rounded-lg" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}><LogoIcon size={20} /></div>
+          <span className="font-bold text-lg" style={{ color: "#15803d" }}>PrepMate</span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           {isProfileComplete && (
-            <button onClick={() => navigate("/upload-resume")} className="bg-black text-white px-3 sm:px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition cursor-pointer">
+            <button onClick={() => navigate("/upload-resume")} className="text-white px-3 sm:px-4 py-2 rounded-full text-sm font-medium transition cursor-pointer" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
               Start Interview
             </button>
           )}
@@ -132,7 +132,7 @@ function Profile() {
                 {form.picture ? (
                   <img src={form.picture} alt="avatar" className="w-20 h-20 rounded-full object-cover border-2 border-gray-200" />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-3xl font-bold">
+                  <div className="w-20 h-20 rounded-full text-white flex items-center justify-center text-3xl font-bold" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
                     {avatarLetter}
                   </div>
                 )}
@@ -141,13 +141,14 @@ function Profile() {
                 <h2 className="text-2xl font-bold text-gray-800">{user?.name}</h2>
                 <p className="text-gray-500 text-sm">{user?.email}</p>
                 {user?.targetRole && <p className="text-blue-600 text-sm mt-1">🎯 {user.targetRole}</p>}
-                <span className="bg-black text-white text-xs px-3 py-1 rounded-full mt-2 inline-block">{user?.credits} credits</span>
+                <span className="text-white text-xs px-3 py-1 rounded-full mt-2 inline-block" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>{user?.credits} credits</span>
               </div>
             </div>
             <button
               onClick={() => editing ? handleSave() : setEditing(true)}
               disabled={loading}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition cursor-pointer ${editing ? "bg-black text-white hover:bg-gray-800" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+              style={editing ? { background: "linear-gradient(135deg, #16a34a, #4ade80)" } : {}}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition cursor-pointer ${editing ? "text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
             >
               {editing ? <><MdSave size={16} /> {loading ? "Saving..." : "Save Profile"}</> : <><MdEdit size={16} /> Edit Profile</>}
             </button>
@@ -178,7 +179,7 @@ function Profile() {
             <label className="text-xs text-gray-500 font-medium mb-1 block">Bio</label>
             {editing ? (
               <textarea name="bio" value={form.bio} onChange={handleChange} rows={3} placeholder="Tell us about yourself..."
-                className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-black resize-none" />
+                className="w-full border border-green-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-green-500 resize-none" />
             ) : (
               <p className="text-sm text-gray-600 bg-gray-50 rounded-xl px-4 py-3 min-h-[60px]">{form.bio || <span className="text-gray-400">No bio added</span>}</p>
             )}
@@ -201,8 +202,8 @@ function Profile() {
                 <input value={skillInput} onChange={e => setSkillInput(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && (e.preventDefault(), addSkill())}
                   placeholder="Add a skill (press Enter)"
-                  className="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-black" />
-                <button onClick={addSkill} className="bg-black text-white px-4 py-2 rounded-xl text-sm cursor-pointer hover:bg-gray-800 transition">
+                  className="flex-1 border border-green-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-green-500" />
+                <button onClick={addSkill} className="text-white px-4 py-2 rounded-xl text-sm cursor-pointer transition" style={{ background: "linear-gradient(135deg, #16a34a, #4ade80)" }}>
                   <MdAdd size={18} />
                 </button>
               </div>
@@ -228,7 +229,7 @@ function Profile() {
                 { label: "Terminated", value: stats.terminatedInterviews, color: "text-red-500" },
                 { label: "Avg Score", value: stats.avgScore ? `${stats.avgScore}%` : "N/A", color: "text-blue-600" },
               ].map((s, i) => (
-                <div key={i} className="bg-gray-50 rounded-xl p-4 text-center">
+                <div key={i} className="rounded-xl p-4 text-center" style={{ background: "#f0fdf4" }}>
                   <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
                   <p className="text-xs text-gray-500 mt-1">{s.label}</p>
                 </div>
@@ -250,9 +251,9 @@ function Field({ icon, label, name, value, editing, onChange, placeholder, requi
       </label>
       {editing ? (
         <input name={name} value={value} onChange={onChange} placeholder={placeholder || label}
-          className={`w-full border rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-black transition ${required && !value ? "border-red-300 bg-red-50" : "border-gray-200"}`} />
+          className={`w-full border rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-green-500 transition ${required && !value ? "border-red-300 bg-red-50" : "border-green-200"}`} />
       ) : (
-        <p className="text-sm text-gray-700 bg-gray-50 rounded-xl px-4 py-2.5 min-h-[40px]">
+        <p className="text-sm text-gray-700 rounded-xl px-4 py-2.5 min-h-[40px]" style={{ background: "#f0fdf4" }}>
           {value || <span className="text-gray-400">Not added</span>}
         </p>
       )}
