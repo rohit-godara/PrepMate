@@ -1,8 +1,4 @@
 {
-  "root": "client",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
